@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <glib.h>
 
 // assume this is a opaque struct
 typedef struct _UnknownStruct {
@@ -20,12 +21,12 @@ struct _MyStruct {
 
 // original function
 MyStruct *mystruct_new() {
-    printf("mystruct_new\n");
+    g_print("mystruct_new\n");
     return malloc(sizeof(MyStruct));
 }
 
 void mystruct_free(MyStruct *mystruct) {
-    printf("mystruct_free\n");
+    g_print("mystruct_free\n");
     free(mystruct);
 }
 
@@ -37,7 +38,7 @@ void mystruct_hello(MyStruct *mystruct) {
     int a = (mystruct->callback)(mystruct, 
        mystruct->unknown.theNumber,
        mystruct->callback_data);
-    printf("Hello Result: %d\n", a);
+    g_print("Hello Result: %d\n", a);
 }
 
 // additional function
