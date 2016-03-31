@@ -37,7 +37,7 @@ impl Drop for MyStruct {
     }
 }
 
-extern "C" fn callback_wrapper(target: *mut ffi::MyStruct, number: i32, callback_data: *mut libc::c_void) -> i32 {
+extern "C" fn callback_wrapper(_: *mut ffi::MyStruct, number: i32, callback_data: *mut libc::c_void) -> i32 {
     unsafe {
         let inner = &mut *(callback_data as *mut MyStructInner);
         let result = (inner.callback)(inner, number);
@@ -88,7 +88,7 @@ impl MyStruct {
 fn main() {
     let mut mystruct = MyStruct::new();
     mystruct.set_number(11);
-    mystruct.set_callback(|m, i| {
+    mystruct.set_callback(|_, i| {
         println!("Hello, World: {}", i);
         12345
     });
